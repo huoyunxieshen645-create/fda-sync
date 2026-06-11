@@ -9,7 +9,6 @@ from pathlib import Path
 OUT_DIR = Path("data/483_pdfs")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-# 已知的 17 条 483 PDF
 PDFS = [
     ("Pyramid_Laboratories", "https://www.fda.gov/media/90793/download"),
     ("Kenvue_Brands", "https://www.fda.gov/media/79258/download"),
@@ -41,41 +40,28 @@ client = httpx.Client(follow_redirects=True, timeout=60, headers=HEADERS)
 results = []
 for name, url in PDFS:
     pdf_path = OUT_DIR / f"{name}.pdf"
-    txt_path = OUT_DIR / f"{name}.txt"
     
-    # 跳过已下载的
-    if pdf_path.exists():
-        print(f"  SKIP {name} (already exists)")
+    if pdf_path.exists() and pdf_path.stat().st_size > 1000:
+        print(f"  SKIP {name} (exists)")
         results.append({"name": name, "status": "skipped"})
         continue
     
     print(f"  DOWNLOAD {name}...", end=" ", flush=True)
     try:
-        time.sleep(2)
+        time.sleep(1.5)
         resp = client.get(url)
         if len(resp.content) > 1000:
             pdf_path.write_bytes(resp.content)
-            # mutool 提取文本
-            import subprocess
-            r = subprocess.run(
-                ["mutool", "draw", "-F", "text", str(pdf_path)],
-                capture_output=True, text=True, timeout=30
-            )
-            txt_path.write_text(r.stdout)
-            print(f"OK ({len(resp.content)//1024}KB, {len(r.stdout)} chars)")
+            print(f"OK ({len(resp.content)//1024}KB)")
             results.append({"name": name, "status": "ok", "size": len(resp.content)})
         else:
-            print(f"BLOCKED ({len(resp.content)} bytes)")
-            results.append({"name": name, "status": "blocked"})
+            print(f"EMPTY ({len(resp.content)} bytes)")
+            results.append({"name": name, "status": "empty"})
     except Exception as e:
         print(f"ERROR: {e}")
         results.append({"name": name, "status": "error", "error": str(e)})
 
-# 汇总
 ok = sum(1 for r in results if r["status"] == "ok")
-blocked = sum(1 for r in results if r["status"] == "blocked")
-skipped = sum(1 for r in results if r["status"] == "skipped")
-print(f"\nDone: {ok} OK, {blocked} blocked, {skipped} skipped, {len(results)} total")
+print(f"\nDone: {ok} OK, {len(results)-ok} failed/skipped")
 
-# 保存结果清单
 Path("data/483_download_log.json").write_text(json.dumps(results, indent=2))
