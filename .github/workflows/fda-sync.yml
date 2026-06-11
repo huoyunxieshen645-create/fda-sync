@@ -23,16 +23,19 @@ jobs:
           pip install httpx
 
       - name: Fetch FDA 483 (from known PDF URLs)
+        working-directory: .github/scripts
         run: |
-          python3 scripts/fetch_483_pdfs.py
+          python3 fetch_483_pdfs.py
 
       - name: Fetch FDA Warning Letters
+        working-directory: .github/scripts
         run: |
-          python3 scripts/fetch_warning_letters.py
+          python3 fetch_warning_letters.py
 
       - name: Update knowledge database
+        working-directory: .github/scripts
         run: |
-          python3 scripts/update_db.py
+          python3 update_db.py
 
       - name: Commit updated data
         run: |
