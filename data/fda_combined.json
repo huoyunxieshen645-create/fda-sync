@@ -1,0 +1,133 @@
+{
+  "483": [
+    {
+      "name": "Pyramid_Laboratories",
+      "status": "ok",
+      "size": 1365818,
+      "pdf_size_kb": 1333
+    },
+    {
+      "name": "Kenvue_Brands",
+      "status": "ok",
+      "size": 256719,
+      "pdf_size_kb": 250
+    },
+    {
+      "name": "Excel_Vision",
+      "status": "ok",
+      "size": 3842302,
+      "pdf_size_kb": 3752
+    },
+    {
+      "name": "Wyeth_Pharmaceutical",
+      "status": "ok",
+      "size": 189701,
+      "pdf_size_kb": 185
+    },
+    {
+      "name": "Sato_Pharmaceutical",
+      "status": "ok",
+      "size": 1545921,
+      "pdf_size_kb": 1509
+    },
+    {
+      "name": "Eagle_Analytical",
+      "status": "ok",
+      "size": 182842,
+      "pdf_size_kb": 178
+    },
+    {
+      "name": "Actavis_Laboratories",
+      "status": "ok",
+      "size": 1079825,
+      "pdf_size_kb": 1054
+    },
+    {
+      "name": "Jubilant_HollisterStier",
+      "status": "ok",
+      "size": 3791253,
+      "pdf_size_kb": 3702
+    },
+    {
+      "name": "ENDO_USA",
+      "status": "ok",
+      "size": 254912,
+      "pdf_size_kb": 248
+    },
+    {
+      "name": "Baxter_Healthcare",
+      "status": "ok",
+      "size": 2528774,
+      "pdf_size_kb": 2469
+    },
+    {
+      "name": "Simtra_Deutschland",
+      "status": "ok",
+      "size": 3674667,
+      "pdf_size_kb": 3588
+    },
+    {
+      "name": "ProRx_LLC",
+      "status": "ok",
+      "size": 2409130,
+      "pdf_size_kb": 2352
+    },
+    {
+      "name": "Grato_Holdings",
+      "status": "ok",
+      "size": 502719,
+      "pdf_size_kb": 490
+    },
+    {
+      "name": "Lupin_Limited",
+      "status": "ok",
+      "size": 1685108,
+      "pdf_size_kb": 1645
+    },
+    {
+      "name": "Fareva_Amboise",
+      "status": "ok",
+      "size": 2275483,
+      "pdf_size_kb": 2222
+    },
+    {
+      "name": "Central_Admixture_Pharmacy",
+      "status": "ok",
+      "size": 3178054,
+      "pdf_size_kb": 3103
+    },
+    {
+      "name": "FarmaKeio_Compounding",
+      "status": "ok",
+      "size": 432963,
+      "pdf_size_kb": 422
+    }
+  ],
+  "warning_letters": [
+    {
+      "company": "",
+      "issued": "CGMP/Active Pharmaceutical Ingredient (API)/Adulterated",
+      "subject": "",
+      "url": "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/warning-letters/about-warning-and-close-out-letters",
+      "body": " { \"@context\": \"https://schema.org\", \"@graph\": [ { \"@type\": \"Article\", \"headline\": \"About Warning and Close-Out Letters\", \"name\": \"About Warning and Close-Out Letters\", \"description\": \"Information about warning letters and close-out letters posted on the FDA website\", \"datePublished\": \"Tue, 03/10/2026 - 10:08\", \"dateModified\": \"Wed, 03/20/2024 - 00:00\", \"author\": { \"@type\": \"Organization\", \"name\": \"Office of the Commissioner\" }, \"publisher\": { \"@type\": \"Organization\", \"name\": \"FDA\" } } ] } About Warning and Close-Out Letters | FDA window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag(\"js\", new Date());gtag(\"set\", \"developer_id.dMDhkMT\", true);gtag(\"config\", \"G-273DTKB5QW\", {\"groups\":\"default\",\"page_placeholder\":\"PLACEHOLDER_page_location\",\"allow_ad_personalization_signals\":false}); Skip to main content Skip to FDA Search Skip to in this section menu Skip to footer links An official website of the United States government Here’s how you know The .gov means it’s official. Federal government websites often end in .gov or .mil. Before sharing sensitive information, make sure you're on a federal government site. The site is secure. The https:// ensures that you are connecting to the official website and that any information you provide is encrypted and transmitted securely. &nbsp; Search &nbsp; Menu Search FDA Submit search Featured Report a Product Problem Contact FDA FDA Guidance Documents Recalls, Market Withdrawals and Safety Alerts Press Announcements Warning Letters Advisory Committees En Espa&#241ol Products Food Drugs Medical Devices Radiation-Emitting Products Vaccines, Blood, and Biologics Animal and Veterinary Cosmetics Tobacco Products Topics About FDA Combination Products Regulatory Information Safety Emergency Preparedness International Programs News and Events Training and Continuing Education Inspections and Compliance Science and Research Information For Consumers Patients Industry Health Professionals Federal, State and Local Officials Home Inspections, Compliance, Enforcement, and Criminal Investigations Compliance Actions and Activities Warning Letters About Warning and Close-Out Letters Warning Letters In this section Warning Letters About Warning and Close-Out Letters About Warning and Close-Out Letters Warning Letters About Warning and Close-Out Letters This page reviews the types of warning letters found on the FDA website. General FDA Warning Letters When FDA identifies what it believes are significant violation(s) of federal requirement(s), FDA notifies the appropriate party. This notification is often in the form of a Warning Letter. The Warning Letter identifies the concern(s), such as poor manufacturing practices, problems with claims for what a product can do, or incorrect directions for use. The letter provides an opportunity for the company or individual to address FDA's concerns and requests a response with a certain timeframe. This response could consist of plans for correction and FDA would then check to ensure that the corrections are adequate. To the extent the company or individual disagrees with the FDA's concerns, the company or individual has the opportunity to supply FDA with its reasoning and supporting information. These communications and other actions by FDA and/or the recipient of the letter may change the regulatory status of the issues discussed in the letter. View general FDA warning letters Tobacco Retail Warning Letters Compliance check inspections of tobacco retailers occur periodically, and are conducted to determine a retail establishment’s compliance with the Federal Food, Drug, and Cosmetic Act, as amended by the Family Smoking Prevention and Tobacco Control Act (Tobacco Control Act) and its regulations in effect, such as the Regulations Restricting the Sale and Distribution of Cigarettes and Smokeless Tobacco to Protect Children and Adolescents , found at Title 21 of the Code of Federal Regulations, Part 1140 (21 C.F.R. Part 1140). Tobacco products covered in compliance check inspections of tobacco retailers include cigarettes and smokeless tobacco. All other Warning Letters issued by CTP for violations of the Federal Food, Drug, and Cosmetic Act, as amended by the Tobacco Control Act and its applicable regulations, can be found at FDA’s main Warning Letter page at the Inspections, Compliance, Enforcement, and Criminal Investigations - Warning Letters page. View tobacco retailer warning letters Drug Marketing and Advertising Warning Letters (and Untitled Letters to Pharmaceutical Companies) These letters, sorted by month, only cover Division of Drug Marketing and Communications and Drug Warning Letters.&nbsp; Some of the letters have been redacted or edited to remove confidential information. \"Cyber\" letters are sent electronically via the Internet to web sites that offer to sell online prescription drugs that may be illegal. The letters warn these web site operators that they may be engaged in illegal activities and in",
+      "citations": []
+    },
+    {
+      "company": "",
+      "issued": "",
+      "subject": "06/09/2026",
+      "url": "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/warning-letters/about-warning-and-close-out-letters",
+      "body": " { \"@context\": \"https://schema.org\", \"@graph\": [ { \"@type\": \"Article\", \"headline\": \"About Warning and Close-Out Letters\", \"name\": \"About Warning and Close-Out Letters\", \"description\": \"Information about warning letters and close-out letters posted on the FDA website\", \"datePublished\": \"Tue, 03/10/2026 - 10:08\", \"dateModified\": \"Wed, 03/20/2024 - 00:00\", \"author\": { \"@type\": \"Organization\", \"name\": \"Office of the Commissioner\" }, \"publisher\": { \"@type\": \"Organization\", \"name\": \"FDA\" } } ] } About Warning and Close-Out Letters | FDA window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag(\"js\", new Date());gtag(\"set\", \"developer_id.dMDhkMT\", true);gtag(\"config\", \"G-273DTKB5QW\", {\"groups\":\"default\",\"page_placeholder\":\"PLACEHOLDER_page_location\",\"allow_ad_personalization_signals\":false}); Skip to main content Skip to FDA Search Skip to in this section menu Skip to footer links An official website of the United States government Here’s how you know The .gov means it’s official. Federal government websites often end in .gov or .mil. Before sharing sensitive information, make sure you're on a federal government site. The site is secure. The https:// ensures that you are connecting to the official website and that any information you provide is encrypted and transmitted securely. &nbsp; Search &nbsp; Menu Search FDA Submit search Featured Report a Product Problem Contact FDA FDA Guidance Documents Recalls, Market Withdrawals and Safety Alerts Press Announcements Warning Letters Advisory Committees En Espa&#241ol Products Food Drugs Medical Devices Radiation-Emitting Products Vaccines, Blood, and Biologics Animal and Veterinary Cosmetics Tobacco Products Topics About FDA Combination Products Regulatory Information Safety Emergency Preparedness International Programs News and Events Training and Continuing Education Inspections and Compliance Science and Research Information For Consumers Patients Industry Health Professionals Federal, State and Local Officials Home Inspections, Compliance, Enforcement, and Criminal Investigations Compliance Actions and Activities Warning Letters About Warning and Close-Out Letters Warning Letters In this section Warning Letters About Warning and Close-Out Letters About Warning and Close-Out Letters Warning Letters About Warning and Close-Out Letters This page reviews the types of warning letters found on the FDA website. General FDA Warning Letters When FDA identifies what it believes are significant violation(s) of federal requirement(s), FDA notifies the appropriate party. This notification is often in the form of a Warning Letter. The Warning Letter identifies the concern(s), such as poor manufacturing practices, problems with claims for what a product can do, or incorrect directions for use. The letter provides an opportunity for the company or individual to address FDA's concerns and requests a response with a certain timeframe. This response could consist of plans for correction and FDA would then check to ensure that the corrections are adequate. To the extent the company or individual disagrees with the FDA's concerns, the company or individual has the opportunity to supply FDA with its reasoning and supporting information. These communications and other actions by FDA and/or the recipient of the letter may change the regulatory status of the issues discussed in the letter. View general FDA warning letters Tobacco Retail Warning Letters Compliance check inspections of tobacco retailers occur periodically, and are conducted to determine a retail establishment’s compliance with the Federal Food, Drug, and Cosmetic Act, as amended by the Family Smoking Prevention and Tobacco Control Act (Tobacco Control Act) and its regulations in effect, such as the Regulations Restricting the Sale and Distribution of Cigarettes and Smokeless Tobacco to Protect Children and Adolescents , found at Title 21 of the Code of Federal Regulations, Part 1140 (21 C.F.R. Part 1140). Tobacco products covered in compliance check inspections of tobacco retailers include cigarettes and smokeless tobacco. All other Warning Letters issued by CTP for violations of the Federal Food, Drug, and Cosmetic Act, as amended by the Tobacco Control Act and its applicable regulations, can be found at FDA’s main Warning Letter page at the Inspections, Compliance, Enforcement, and Criminal Investigations - Warning Letters page. View tobacco retailer warning letters Drug Marketing and Advertising Warning Letters (and Untitled Letters to Pharmaceutical Companies) These letters, sorted by month, only cover Division of Drug Marketing and Communications and Drug Warning Letters.&nbsp; Some of the letters have been redacted or edited to remove confidential information. \"Cyber\" letters are sent electronically via the Internet to web sites that offer to sell online prescription drugs that may be illegal. The letters warn these web site operators that they may be engaged in illegal activities and in",
+      "citations": []
+    },
+    {
+      "company": "",
+      "issued": "CGMP/OTC Finished Pharmaceuticals/Adulterated",
+      "subject": "",
+      "url": "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/warning-letters/about-warning-and-close-out-letters",
+      "body": " { \"@context\": \"https://schema.org\", \"@graph\": [ { \"@type\": \"Article\", \"headline\": \"About Warning and Close-Out Letters\", \"name\": \"About Warning and Close-Out Letters\", \"description\": \"Information about warning letters and close-out letters posted on the FDA website\", \"datePublished\": \"Tue, 03/10/2026 - 10:08\", \"dateModified\": \"Wed, 03/20/2024 - 00:00\", \"author\": { \"@type\": \"Organization\", \"name\": \"Office of the Commissioner\" }, \"publisher\": { \"@type\": \"Organization\", \"name\": \"FDA\" } } ] } About Warning and Close-Out Letters | FDA window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag(\"js\", new Date());gtag(\"set\", \"developer_id.dMDhkMT\", true);gtag(\"config\", \"G-273DTKB5QW\", {\"groups\":\"default\",\"page_placeholder\":\"PLACEHOLDER_page_location\",\"allow_ad_personalization_signals\":false}); Skip to main content Skip to FDA Search Skip to in this section menu Skip to footer links An official website of the United States government Here’s how you know The .gov means it’s official. Federal government websites often end in .gov or .mil. Before sharing sensitive information, make sure you're on a federal government site. The site is secure. The https:// ensures that you are connecting to the official website and that any information you provide is encrypted and transmitted securely. &nbsp; Search &nbsp; Menu Search FDA Submit search Featured Report a Product Problem Contact FDA FDA Guidance Documents Recalls, Market Withdrawals and Safety Alerts Press Announcements Warning Letters Advisory Committees En Espa&#241ol Products Food Drugs Medical Devices Radiation-Emitting Products Vaccines, Blood, and Biologics Animal and Veterinary Cosmetics Tobacco Products Topics About FDA Combination Products Regulatory Information Safety Emergency Preparedness International Programs News and Events Training and Continuing Education Inspections and Compliance Science and Research Information For Consumers Patients Industry Health Professionals Federal, State and Local Officials Home Inspections, Compliance, Enforcement, and Criminal Investigations Compliance Actions and Activities Warning Letters About Warning and Close-Out Letters Warning Letters In this section Warning Letters About Warning and Close-Out Letters About Warning and Close-Out Letters Warning Letters About Warning and Close-Out Letters This page reviews the types of warning letters found on the FDA website. General FDA Warning Letters When FDA identifies what it believes are significant violation(s) of federal requirement(s), FDA notifies the appropriate party. This notification is often in the form of a Warning Letter. The Warning Letter identifies the concern(s), such as poor manufacturing practices, problems with claims for what a product can do, or incorrect directions for use. The letter provides an opportunity for the company or individual to address FDA's concerns and requests a response with a certain timeframe. This response could consist of plans for correction and FDA would then check to ensure that the corrections are adequate. To the extent the company or individual disagrees with the FDA's concerns, the company or individual has the opportunity to supply FDA with its reasoning and supporting information. These communications and other actions by FDA and/or the recipient of the letter may change the regulatory status of the issues discussed in the letter. View general FDA warning letters Tobacco Retail Warning Letters Compliance check inspections of tobacco retailers occur periodically, and are conducted to determine a retail establishment’s compliance with the Federal Food, Drug, and Cosmetic Act, as amended by the Family Smoking Prevention and Tobacco Control Act (Tobacco Control Act) and its regulations in effect, such as the Regulations Restricting the Sale and Distribution of Cigarettes and Smokeless Tobacco to Protect Children and Adolescents , found at Title 21 of the Code of Federal Regulations, Part 1140 (21 C.F.R. Part 1140). Tobacco products covered in compliance check inspections of tobacco retailers include cigarettes and smokeless tobacco. All other Warning Letters issued by CTP for violations of the Federal Food, Drug, and Cosmetic Act, as amended by the Tobacco Control Act and its applicable regulations, can be found at FDA’s main Warning Letter page at the Inspections, Compliance, Enforcement, and Criminal Investigations - Warning Letters page. View tobacco retailer warning letters Drug Marketing and Advertising Warning Letters (and Untitled Letters to Pharmaceutical Companies) These letters, sorted by month, only cover Division of Drug Marketing and Communications and Drug Warning Letters.&nbsp; Some of the letters have been redacted or edited to remove confidential information. \"Cyber\" letters are sent electronically via the Internet to web sites that offer to sell online prescription drugs that may be illegal. The letters warn these web site operators that they may be engaged in illegal activities and in",
+      "citations": []
+    }
+  ],
+  "fetched_at": "2026-06-11T09:20:20.296288"
+}
