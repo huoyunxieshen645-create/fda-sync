@@ -8,9 +8,6 @@ on:
 jobs:
   fda-sync:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ${{ github.workspace }}/.github/scripts
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -24,23 +21,24 @@ jobs:
         run: |
           pip install httpx
 
-      - name: Fetch FDA 483 (from known PDF URLs)
+      - name: Fetch FDA 483 PDFs
         run: |
-          python3 fetch_483_pdfs.py
+          cd .github/scripts && python3 fetch_483_pdfs.py
 
       - name: Fetch FDA Warning Letters
         run: |
-          python3 fetch_warning_letters.py
+          cd .github/scripts && python3 fetch_warning_letters.py
 
       - name: Update knowledge database
         run: |
-          python3 update_db.py
+          cd .github/scripts && python3 update_db.py
 
       - name: Commit updated data
         run: |
+          mkdir -p data
           git config user.name "fda-bot"
           git config user.email "fda-bot@users.noreply.github.com"
-          git add ${{ github.workspace }}/data/
+          git add data/
           git diff --quiet && git diff --staged --quiet || \
             git commit -m "auto: FDA data sync $(date +'%Y-%m-%d')"
           git push
