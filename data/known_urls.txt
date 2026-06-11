@@ -1,4 +1,6 @@
 wl_05/12/2026_Fagron BV
+wl_06/02/2026_Revlon Group Holdings, LLC
 wl_CGMP/Active Pharmaceutical Ingredient (API)/Adulterated_
 wl_CGMP/OTC Finished Pharmaceuticals/Adulterated_
+wl_Compounding Pharmacy/Adulterated Drug Products_
 wl__
