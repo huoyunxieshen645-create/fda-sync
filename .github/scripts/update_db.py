@@ -5,7 +5,8 @@ Merge fetched FDA data into combined JSON for Termux to pull
 import json
 from pathlib import Path
 
-DATA_DIR = Path("data")
+REPO_ROOT = Path(__file__).resolve().parent.parent.parent
+DATA_DIR = REPO_ROOT / "data"
 
 combined = {
     "483": [],
