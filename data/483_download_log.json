@@ -1,70 +1,87 @@
 [
   {
     "name": "Pyramid_Laboratories",
-    "status": "skipped"
+    "status": "skipped",
+    "size": 1333
   },
   {
     "name": "Kenvue_Brands",
-    "status": "skipped"
+    "status": "skipped",
+    "size": 250
   },
   {
     "name": "Excel_Vision",
-    "status": "skipped"
+    "status": "skipped",
+    "size": 3752
   },
   {
     "name": "Wyeth_Pharmaceutical",
-    "status": "skipped"
+    "status": "skipped",
+    "size": 185
   },
   {
     "name": "Sato_Pharmaceutical",
-    "status": "skipped"
+    "status": "skipped",
+    "size": 1509
   },
   {
     "name": "Eagle_Analytical",
-    "status": "skipped"
+    "status": "skipped",
+    "size": 178
   },
   {
     "name": "Actavis_Laboratories",
-    "status": "skipped"
+    "status": "skipped",
+    "size": 1054
   },
   {
     "name": "Jubilant_HollisterStier",
-    "status": "skipped"
+    "status": "skipped",
+    "size": 3702
   },
   {
     "name": "ENDO_USA",
-    "status": "skipped"
+    "status": "skipped",
+    "size": 248
   },
   {
     "name": "Baxter_Healthcare",
-    "status": "skipped"
+    "status": "skipped",
+    "size": 2469
   },
   {
     "name": "Simtra_Deutschland",
-    "status": "skipped"
+    "status": "skipped",
+    "size": 3588
   },
   {
     "name": "ProRx_LLC",
-    "status": "skipped"
+    "status": "skipped",
+    "size": 2352
   },
   {
     "name": "Grato_Holdings",
-    "status": "skipped"
+    "status": "skipped",
+    "size": 490
   },
   {
     "name": "Lupin_Limited",
-    "status": "skipped"
+    "status": "skipped",
+    "size": 1645
   },
   {
     "name": "Fareva_Amboise",
-    "status": "skipped"
+    "status": "skipped",
+    "size": 2222
   },
   {
     "name": "Central_Admixture_Pharmacy",
-    "status": "skipped"
+    "status": "skipped",
+    "size": 3103
   },
   {
     "name": "FarmaKeio_Compounding",
-    "status": "skipped"
+    "status": "skipped",
+    "size": 422
   }
 ]
