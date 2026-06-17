@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+"""
+Fetch FDA Warning Letters from the Drupal DataTables page.
+FDA 2026 Drupal redesign: WL table is SSR in HTML with class-based columns.
+We parse the HTML table directly.
+"""
 import httpx, re, json, os, time
 from pathlib import Path
 
@@ -12,74 +17,231 @@ HEADERS = {
     "Accept": "text/html,*/*",
 }
 
-PHARMA_KW = ["drug", "pharma", "sterile", "cgmp", "gmp", "api", "adulterated",
-             "manufactur", "compounding", "aseptic", "bacteria", "contamination", "batch"]
-NON_PHARMA_KW = ["hospital", "clinic", "restaurant", "food", "cosmetic", "tobacco", "veterinary"]
-WL_URL = "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/compliance-actions-and-activities/warning-letters"
+WL_LIST_URL = "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/compliance-actions-and-activities/warning-letters"
 
-known = set(KNOWN_FILE.read_text().strip().split("\n")) if KNOWN_FILE.exists() else set()
+# Pharma keywords for filtering
+PHARMA_KW = [
+    "drug", "pharma", "sterile", "cgmp", "gmp", "api", "adulterated",
+    "manufactur", "compounding", "aseptic", "bacteria", "contamination",
+    "batch", "finished pharmaceutical", "over-the-counter", "otc drug",
+    "active pharmaceutical", "cgmp/finished", "cgmp/active",
+]
+NON_PHARMA_KW = [
+    "hospital", "clinic", "restaurant", "food", "cosmetic", "tobacco",
+    "veterinary", "seafood", "dietary supplement", "medical device",
+]
+
 client = httpx.Client(follow_redirects=True, timeout=30, headers=HEADERS)
 
-print("Fetching WL list...")
-resp = client.get(WL_URL)
-tds = re.findall(r'<td[^>]*>([\s\S]*?)</td>', resp.text)
-items = [re.sub(r'<[^>]+>', '', td).strip() for td in tds]
-records = []
-for i in range(0, len(items), 5):
-    if i + 4 < len(items):
-        rec = {"posted": items[i], "issued": items[i+1], "company": items[i+2], "office": items[i+3], "subject": items[i+4]}
-        text = json.dumps(rec).lower()
-        score = 0
-        if any(kw in text for kw in PHARMA_KW): score += 3
-        if "CDER" in rec.get("office", ""): score += 2
-        if any(kw in text for kw in NON_PHARMA_KW): score -= 2
-        if score >= 3:
+def is_pharma_related(company, subject, office):
+    """Score WL relevance to pharma CGMP."""
+    text = f"{company} {subject} {office}".lower()
+    score = 0
+    if any(kw in text for kw in PHARMA_KW):
+        score += 3
+    if "CDER" in office:
+        score += 2
+    if any(kw in text for kw in NON_PHARMA_KW):
+        score -= 2
+    # Food-related from CFSAN is not pharma
+    if "CFSAN" in office or "Center for Food" in office:
+        score -= 3
+    return score >= 3
+
+def parse_wl_table(html):
+    """Parse the Drupal DataTables SSR table for WL entries."""
+    records = []
+    
+    # Extract rows from the table body
+    # Drupal 2026: table with class 'table table-bordered table-hover sticky-enabled'
+    # Columns: Posted Date | Letter Issue Date | Company Name | Issuing Office | Subject/Product | CMS # | FEI # | Actions
+    
+    # Find all <tr> inside the table body
+    table_match = re.search(
+        r'<table[^>]*class="[^"]*\btable\b[^"]*"[^>]*>.*?</table>',
+        html, re.DOTALL
+    )
+    if not table_match:
+        print("  WARN: No table found in HTML")
+        return records
+    
+    table_html = table_match.group(0)
+    
+    # Find rows - skip header row
+    rows = re.findall(r'<tr[^>]*>(.*?)</tr>', table_html, re.DOTALL)
+    
+    for row in rows[1:]:  # skip header
+        cells = re.findall(r'<td[^>]*>(.*?)</td>', row, re.DOTALL)
+        if len(cells) < 7:
+            continue
+        
+        # Extract text from each cell
+        clean_cells = []
+        for c in cells:
+            text = re.sub(r'<[^>]+>', ' ', c)
+            text = re.sub(r'\s+', ' ', text).strip()
+            clean_cells.append(text)
+        
+        # Extract link to WL detail page
+        link_match = re.search(r'href="([^"]*)"', cells[2] if len(cells) > 2 else '')
+        url = ""
+        if link_match:
+            href = link_match.group(1)
+            if href.startswith("/"):
+                url = "https://www.fda.gov" + href
+            elif href.startswith("http"):
+                url = href
+        
+        rec = {
+            "posted": clean_cells[0] if len(clean_cells) > 0 else "",
+            "issued": clean_cells[1] if len(clean_cells) > 1 else "",
+            "company": clean_cells[2] if len(clean_cells) > 2 else "",
+            "office": clean_cells[3] if len(clean_cells) > 3 else "",
+            "subject": clean_cells[4] if len(clean_cells) > 4 else "",
+            "cms": clean_cells[5] if len(clean_cells) > 5 else "",
+            "fei": clean_cells[6] if len(clean_cells) > 6 else "",
+            "url": url,
+        }
+        
+        # Filter to pharma-related only
+        if is_pharma_related(rec["company"], rec["subject"], rec["office"]):
             records.append(rec)
-print(f"  Pharma-related: {len(records)}")
+    
+    return records
 
-links = {}
-for m in re.finditer(r'href="(/inspections-compliance-enforcement-and-criminal-investigations/warning-letters/[^"]*)"', resp.text):
-    links[m.group(1).split("/")[-1]] = "https://www.fda.gov" + m.group(1)
-
-new_records = []
-for rec in records:
-    slug = re.sub(r'[^a-z0-9]+', '-', rec["company"].lower()).strip('-')
-    url = None
-    for s, l in links.items():
-        if slug[:20] in s or s[:20] in slug:
-            url = l
-            break
-    if not url:
-        continue
-    link_id = f"wl_{rec['issued']}_{rec['company']}"
-    if link_id in known:
-        continue
-    print(f"  Fetch: {rec['company'][:40]}...", end=" ", flush=True)
-    time.sleep(3)
+def fetch_wl_body(url):
+    """Fetch the full WL body from detail page."""
     try:
-        r2 = client.get(url)
-        html = r2.text
+        resp = client.get(url, timeout=30)
+        html = resp.text
+        
+        # Check for abuse/apology page
+        if "apology" in html[:500].lower() or "abuse" in html[:500].lower():
+            return None, "BLOCKED_BY_AKAMAI"
+        
         text = re.sub(r'<[^>]+>', ' ', html)
         text = re.sub(r'\s+', ' ', text)
+        
+        # Find the actual warning letter content
         start = text.find("WARNING LETTER")
         if start < 0:
-            start = text.find("Dear")
-        body = text[start:] if start >= 0 else text[:5000]
-        end = body.find("Sincerely")
-        if end > 0:
-            body = body[:end+20]
-        body = body[:5000]
-        safe = re.sub(r'[^a-zA-Z0-9_-]', '_', rec["company"])[:40]
-        (OUT_DIR / f"{safe}.txt").write_text(body)
-        clean = re.sub(r'\s+', ' ', body)
-        cites = sorted(set(m.group().strip().rstrip('.') for m in re.finditer(r'\d+\s+CFR\s+\d+\.?\d*[a-z]?\(?[^)\s]*\)?', clean, re.I) if 5 < len(m.group()) < 30))
-        new_records.append({"company": rec["company"], "issued": rec["issued"], "subject": rec["subject"], "url": url, "body": body, "citations": cites})
-        known.add(link_id)
-        print(f"OK ({len(body)} chars)")
+            start = text.find("Dear ")
+        if start < 0:
+            start = 0
+        
+        body = text[start:]
+        
+        # Truncate at "Content current as of:" or similar footer
+        for marker in ["Content current as of", "Back to Top", "FDA Archive"]:
+            idx = body.find(marker)
+            if idx > 0:
+                body = body[:idx]
+        
+        body = body[:10000]  # cap at 10K chars
+        return body, None
     except Exception as e:
-        print(f"ERROR: {e}")
+        return None, str(e)
 
+def extract_citations(text):
+    """Extract regulatory citations (e.g. '21 CFR 211.22') from text."""
+    pattern = r'\d+\s+CFR\s+\d+\.?\d*[a-z]?\(?[^)\s]*\)?'
+    cites = set()
+    for m in re.finditer(pattern, text, re.IGNORECASE):
+        c = m.group().strip().rstrip('.')
+        if 5 < len(c) < 30:
+            cites.add(c)
+    return sorted(cites)
+
+# ===== MAIN =====
+known = set()
+if KNOWN_FILE.exists():
+    known = set(KNOWN_FILE.read_text().strip().split("\n"))
+    known.discard("")
+
+print("Fetching WL list page...")
+resp = client.get(WL_LIST_URL)
+html = resp.text
+
+# Check for block
+if "apology" in html[:500].lower():
+    print("  WARN: Akamai abuse detection page returned")
+    print("  Trying alternate approach...")
+    records = []
+else:
+    records = parse_wl_table(html)
+
+print(f"  Pharma-related WLs found: {len(records)}")
+
+# Also check page 2 if available
+page2_url = WL_LIST_URL + "?page=1"
+try:
+    resp2 = client.get(page2_url, timeout=30)
+    if resp2.status_code == 200 and "apology" not in resp2.text[:500].lower():
+        records2 = parse_wl_table(resp2.text)
+        print(f"  Page 2 pharma WLs: {len(records2)}")
+        records.extend(records2)
+except Exception:
+    pass
+
+# Fetch detail for each new record
+new_records = []
+for rec in records:
+    if not rec["url"]:
+        print(f"  SKIP {rec['company'][:40]} (no URL)")
+        continue
+    
+    # Dedup by CMS number (if available) or URL slug
+    if rec["cms"]:
+        link_id = f"wl_cms_{rec['cms']}"
+    else:
+        slug = rec["url"].rstrip("/").split("/")[-1]
+        link_id = f"wl_{slug}"
+    
+    if link_id in known:
+        print(f"  SKIP {rec['company'][:40]} (known)")
+        continue
+    
+    print(f"  FETCH {rec['company'][:40]}...", end=" ", flush=True)
+    time.sleep(2)
+    
+    body, error = fetch_wl_body(rec["url"])
+    if body is None:
+        print(f"FAIL ({error})")
+        continue
+    
+    # Save raw text
+    safe_name = re.sub(r'[^a-zA-Z0-9_-]', '_', rec["company"])[:60] or f"wl_{rec['cms']}"
+    (OUT_DIR / f"{safe_name}.txt").write_text(body)
+    
+    # Extract citations from full text
+    cites = extract_citations(body)
+    
+    new_records.append({
+        "company": rec["company"],
+        "issued": rec["issued"],
+        "subject": rec["subject"],
+        "url": rec["url"],
+        "body": body,
+        "citations": cites,
+    })
+    known.add(link_id)
+    print(f"OK ({len(body)} chars, {len(cites)} citations)")
+
+# Update known_urls.txt
 if new_records:
-    (REPO_ROOT / "data" / "wl_new_records.json").write_text(json.dumps(new_records, indent=2, ensure_ascii=False))
-    KNOWN_FILE.write_text("\n".join(sorted(known)))
-print(f"\nDone: {len(new_records)} new WL records")
+    KNOWN_FILE.write_text("\n".join(sorted(known)) + "\n")
+
+# Save new records to JSON
+if new_records:
+    output_path = REPO_ROOT / "data" / "wl_new_records.json"
+    # Merge with existing
+    existing = []
+    if output_path.exists():
+        existing = json.loads(output_path.read_text())
+    existing.extend(new_records)
+    output_path.write_text(json.dumps(existing, indent=2, ensure_ascii=False))
+    print(f"\n  Saved {len(new_records)} new records to {output_path}")
+else:
+    print("\n  No new WL records")
+
+print(f"\nDone")
