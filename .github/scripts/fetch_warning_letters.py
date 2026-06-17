@@ -19,12 +19,22 @@ HEADERS = {
 
 WL_LIST_URL = "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/compliance-actions-and-activities/warning-letters"
 
-# Pharma keywords for filtering
+# Pharma CGMP keywords — ONLY match actual CGMP/drug quality violations
+# NOT telehealth, false claims, or food/device letters
 PHARMA_KW = [
-    "drug", "pharma", "sterile", "cgmp", "gmp", "api", "adulterated",
-    "manufactur", "compounding", "aseptic", "bacteria", "contamination",
-    "batch", "finished pharmaceutical", "over-the-counter", "otc drug",
-    "active pharmaceutical", "cgmp/finished", "cgmp/active",
+    "cgmp", "c.g.m.p.", "current good manufacturing",
+    "finished pharmaceuticals", "active pharmaceutical",
+    "drug product", "api ", "adulterated",
+    "sterile drug", "aseptic", "compounding",
+    "contamination", "microbiological",
+    "over-the-counter drug", "otc drug",
+]
+# Explicit exclusion — these subjects are NOT pharma CGMP even if they mention drugs
+EXCLUDE_SUBJECT_KW = [
+    "false and misleading", "misbranded", "misleading claims",
+    "telehealth", "unapproved", "new drug",
+    "clinical investigator", "clinical trial",
+    "research", "irb", "institutional review",
 ]
 NON_PHARMA_KW = [
     "hospital", "clinic", "restaurant", "food", "cosmetic", "tobacco",
@@ -34,18 +44,32 @@ NON_PHARMA_KW = [
 client = httpx.Client(follow_redirects=True, timeout=30, headers=HEADERS)
 
 def is_pharma_related(company, subject, office):
-    """Score WL relevance to pharma CGMP."""
+    """Score WL relevance to pharma CGMP.
+    Only returns True for drug CGMP, sterile, and compounding violations.
+    Excludes: telehealth false claims, food, devices, tobacco, clinical research.
+    """
+    subj_lower = subject.lower()
     text = f"{company} {subject} {office}".lower()
+    
+    # Explicit exclusion check first
+    if any(kw in subj_lower for kw in EXCLUDE_SUBJECT_KW):
+        return False
+    
     score = 0
     if any(kw in text for kw in PHARMA_KW):
-        score += 3
+        score += 4  # Strong signal
     if "CDER" in office:
-        score += 2
+        score += 1
     if any(kw in text for kw in NON_PHARMA_KW):
-        score -= 2
-    # Food-related from CFSAN is not pharma
-    if "CFSAN" in office or "Center for Food" in office:
         score -= 3
+    if "CFSAN" in office or "Center for Food" in office:
+        return False
+    if "CDRH" in office or "Center for Devices" in office:
+        return False
+    # Telehealth compounding is still regulatory but not CGMP — exclude
+    if "telehealth" in subj_lower:
+        return False
+    
     return score >= 3
 
 def parse_wl_table(html):
@@ -153,6 +177,12 @@ def extract_citations(text):
     return sorted(cites)
 
 # ===== MAIN =====
+# Load existing WL data for dedup
+existing_before = []
+wl_output_path = REPO_ROOT / "data" / "wl_new_records.json"
+if wl_output_path.exists():
+    existing_before = json.loads(wl_output_path.read_text())
+
 known = set()
 if KNOWN_FILE.exists():
     known = set(KNOWN_FILE.read_text().strip().split("\n"))
@@ -199,6 +229,13 @@ for rec in records:
     
     if link_id in known:
         print(f"  SKIP {rec['company'][:40]} (known)")
+        continue
+    
+    # Double-check: skip if same CMS already in WL file (legacy dedup)
+    cms_num = rec.get("cms", "")
+    if cms_num and any(wl.get("url", "").endswith(cms_num) for wl in existing_before):
+        print(f"  SKIP {rec['company'][:40]} (CMS {cms_num} already in output)")
+        known.add(link_id)
         continue
     
     print(f"  FETCH {rec['company'][:40]}...", end=" ", flush=True)
