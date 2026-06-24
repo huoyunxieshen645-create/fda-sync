@@ -161,6 +161,7 @@ def scan_foia_pages(tracked_ids):
         # Find ALL rows in table for stats
         all_rows = re.findall(r'<tr', html)
         print(f"    Table rows in page: {len(all_rows)}")
+        scan_log.append(f"{label}: OK ({len(html)}b, rows={len(all_rows)})")
         
         # Parse OII FOIA table — it's a Drupal Views table
         # Column: Record Date | Company Name | FEI | Record Type (a href) | State | Country | Est Type | Publish Date
