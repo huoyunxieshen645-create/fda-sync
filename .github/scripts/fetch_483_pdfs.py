@@ -248,6 +248,20 @@ else:
     # Write empty to clear old data
     (DATA_DIR / "483_new_found.json").write_text("[]")
 
+# Save FOIA page snapshots for debugging
+print("=== Phase 3: Save FOIA page snapshots ===")
+for url in FOIA_PAGES:
+    try:
+        label2 = url.rstrip("/").split("/")[-1][:30]
+        time.sleep(1)
+        resp2 = client.get(url)
+        snapped = resp2.text[:80000]
+        (DATA_DIR / f"debug_{label2}.html").write_text(snapped)
+        status = "BLOCKED" if "apology" in snapped[:500].lower() else f"OK ({len(snapped)}b)"
+        print(f"  {label2}: {status}")
+    except Exception as e:
+        print(f"  {label2}: ERROR {e}")
+
 # Update tracking file
 save_tracked_ids(tracked_ids)
 
