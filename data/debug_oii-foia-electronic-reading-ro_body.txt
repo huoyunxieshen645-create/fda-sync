@@ -1,0 +1,55 @@
+export default {
+  async fetch(request, env) {
+    try {
+      const url = new URL(request.url);
+      const target = url.searchParams.get('target');
+      if (!target) {
+        return new Response('缺少参数 ?target=https://xxx.com/api', { status: 400 });
+      }
+
+      const targetUrl = new URL(target);
+      // 白名单：只允许代理你信任的域名，防止滥用，自行修改
+      const allowHosts = [
+        'api.tcloudbasegateway.com', // 微信云开发接口
+        'hermes.xxx.com'             // 你的Hermes隧道域名
+      ];
+      if (!allowHosts.includes(targetUrl.host)) {
+        return new Response('禁止代理该域名', { status: 403 });
+      }
+
+      // 清洗请求头，剔除冲突/危险头部
+      const newHeaders = new Headers(request.headers);
+      newHeaders.delete('host');
+      newHeaders.delete('origin');
+      newHeaders.delete('cf-connecting-ip');
+      newHeaders.set('Host', targetUrl.host);
+
+      const isGetHead = ['GET', 'HEAD'].includes(request.method);
+      const proxyReq = new Request(target, {
+        method: request.method,
+        headers: newHeaders,
+        body: isGetHead ? null : request.body
+      });
+
+      const resp = await fetch(proxyReq, { signal: AbortSignal.timeout(12000) });
+      const respHeaders = new Headers(resp.headers);
+      // 跨域配置
+      respHeaders.set('Access-Control-Allow-Origin', '*');
+      respHeaders.set('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+      respHeaders.set('Access-Control-Allow-Headers', '*');
+
+      // 预检OPTIONS直接快速返回
+      if (request.method === 'OPTIONS') {
+        return new Response(null, { status: 204, headers: respHeaders });
+      }
+
+      return new Response(resp.body, {
+        status: resp.status,
+        statusText: resp.statusText,
+        headers: respHeaders
+      });
+    } catch (err) {
+      return new Response(`代理请求失败：${err.message}`, { status: 502 });
+    }
+  }
+};
