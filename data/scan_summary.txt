@@ -1,0 +1,4 @@
+cder-foia-electronic-reading-r: status=OK size=10 media_links=0 pdf_links=0 has_483=False
+cber-foia-electronic-reading-r: status=OK size=10 media_links=0 pdf_links=0 has_483=False
+ora-foia-electronic-reading-ro: status=OK size=10 media_links=0 pdf_links=0 has_483=False
+oii-foia-electronic-reading-ro: status=OK size=10 media_links=0 pdf_links=0 has_483=False
