@@ -21,7 +21,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install httpx
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils  # pdftotext
+          pip install httpx PyPDF2
 
       - name: Fetch FDA 483 PDFs
         run: |
