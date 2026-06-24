@@ -248,19 +248,35 @@ else:
     # Write empty to clear old data
     (DATA_DIR / "483_new_found.json").write_text("[]")
 
-# Save FOIA page snapshots for debugging
-print("=== Phase 3: Save FOIA page snapshots ===")
+# Save FOIA page scan summary for debugging
+print("=== Phase 3: FOIA page scan summary ===")
+scan_summary = []
 for url in FOIA_PAGES:
     try:
         label2 = url.rstrip("/").split("/")[-1][:30]
         time.sleep(1)
         resp2 = client.get(url)
-        snapped = resp2.text[:80000]
-        (DATA_DIR / f"debug_{label2}.html").write_text(snapped)
-        status = "BLOCKED" if "apology" in snapped[:500].lower() else f"OK ({len(snapped)}b)"
-        print(f"  {label2}: {status}")
+        snapped = resp2.text[:50000]
+        status = "BLOCKED" if "apology" in snapped[:500].lower() else "OK"
+        
+        # Count media links in the page
+        media_count = len(set(re.findall(r'/media/(\d+)/download', snapped)))
+        # Find any PDFs
+        pdf_links = re.findall(r'href="([^"]*\.pdf)"', snapped, re.I)
+        # Check for 483 text
+        has_483 = "483" in snapped
+        
+        msg = f"{label2}: status={status} size={len(resp2.text)} media_links={media_count} pdf_links={len(pdf_links)} has_483={has_483}"
+        scan_summary.append(msg)
+        print(f"  {msg}")
     except Exception as e:
-        print(f"  {label2}: ERROR {e}")
+        msg = f"{label2}: ERROR {e}"
+        scan_summary.append(msg)
+        print(f"  {msg}")
+
+# Write scan summary to repo (can be read from Termux)
+(DATA_DIR / "scan_summary.txt").write_text("\n".join(scan_summary) + "\n")
+
 
 # Update tracking file
 save_tracked_ids(tracked_ids)
