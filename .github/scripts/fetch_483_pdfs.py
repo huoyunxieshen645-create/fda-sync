@@ -115,11 +115,9 @@ def scan_foia_pages(tracked_ids):
             html = curl_html
         
         if len(html) < 1000:
-            print(f"    Both failed — page too short ({len(html)}b)")
-            # Try to see what was returned
-            if html:
-                print(f"    Content: {repr(html[:300])}")
-            scan_log.append(f"{label}: FAILED ({len(html)}b)")
+            snippet = repr(html[:300])
+            print(f"    Both failed — page too short ({len(html)}b): {snippet}")
+            scan_log.append(f"{label}: FAILED ({len(html)}b) {snippet}")
             continue
         
         # Check if it's an Akamai block page
