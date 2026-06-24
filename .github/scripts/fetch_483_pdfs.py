@@ -70,8 +70,10 @@ def try_download(media_id, name, url, force=False):
 
 # FOIA pages to scan
 FOIA_PAGES = [
+    # OII FOIA — actual 483 source
+    "https://www.fda.gov/about-fda/office-inspections-and-investigations/oii-foia-electronic-reading-room",
+    # CDER FOIA — backup
     "https://www.fda.gov/drugs/cder-foia-electronic-reading-room",
-    "https://www.fda.gov/vaccines-blood-biologics/cber-foia-electronic-reading-room",
 ]
 
 def try_with_curl(url):
