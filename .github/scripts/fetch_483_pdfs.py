@@ -83,6 +83,10 @@ FOIA_PAGES = [
     "https://www.fda.gov/drugs/cder-foia-electronic-reading-room",
     # CBER FOIA — Biologics (sterile injectables, vaccines)
     "https://www.fda.gov/vaccines-blood-biologics/cber-foia-electronic-reading-room",
+    # ORA FOIA (may redirect but trying)
+    "https://www.fda.gov/about-fda/office-regulatory-affairs/ora-foia-electronic-reading-room",
+    # OII FOIA
+    "https://www.fda.gov/about-fda/office-inspections-and-investigations/oii-foia-electronic-reading-room",
 ]
 
 def scan_foia_pages(tracked_ids):
@@ -91,29 +95,53 @@ def scan_foia_pages(tracked_ids):
     for url in FOIA_PAGES:
         try:
             time.sleep(2)
-            print(f"  Scanning {url.split('/')[-1][:40]}...", end=" ", flush=True)
+            label = url.rstrip("/").split("/")[-1][:40]
+            print(f"  Scanning {label}...", end=" ", flush=True)
             resp = client.get(url)
             html = resp.text
             if "apology" in html[:500].lower() or "abuse" in html[:500].lower():
-                print("BLOCKED")
+                print(f"BLOCKED ({len(resp.text)}b, 'apology' in head)")
+                # Still save a snippet
+                (REPO_ROOT / "data" / f"scan_{label}_blocked.html").write_text(resp.text[:30000])
                 continue
-            print(f"{len(resp.text)} bytes")
+            if len(html) < 2000:
+                print(f"TOO SHORT ({len(resp.text)}b, likely redirect/empty)")
+                continue
+            print(f"{len(resp.text)} bytes — searching for /media/ links...")
 
-            # Find all /media/XXXX/download links
-            media_links = re.findall(r'href="[^"]*/media/(\d+)/download[^"]*"', html)
-            for mid in set(media_links):
+            # Find ALL /media/XXXX/download links
+            media_links = re.findall(r'/media/(\d+)/download', html)
+            media_set = set(media_links)
+            print(f"    Found {len(media_links)} media links ({len(media_set)} unique)")
+
+            for mid in sorted(media_set):
                 if mid in tracked_ids:
                     continue
-                # Try to extract company name from surrounding HTML
-                context_match = re.search(
+                # Try to extract company name from surrounding HTML — broader search
+                # Look backwards from the link for the nearest <td> or <a> text
+                context_patterns = [
+                    r'<td[^>]*>([^<]{10,120})</td>\s*<td[^>]*>[^<]*</td>\s*<td[^>]*>[^<]*</td>\s*<td[^>]*>[^<]*href="[^"]*/media/' + re.escape(mid) + r'/download"',
                     r'(?:>([^<]{10,120})<)[^<]*href="[^"]*/media/' + re.escape(mid) + r'/download"',
-                    html
-                )
-                name = context_match.group(1).strip() if context_match else f"Media_{mid}"
+                ]
+                name = None
+                for pat in context_patterns:
+                    cm = re.search(pat, html)
+                    if cm:
+                        name = cm.group(1).strip()
+                        break
+                if not name:
+                    name = f"Media_{mid}"
                 name_clean = re.sub(r'[^a-zA-Z0-9_\-]+', '_', name)[:60].strip('_')
                 full_url = f"https://www.fda.gov/media/{mid}/download"
                 new_finds.append((mid, name_clean, full_url))
-                print(f"  >> NEW: {name_clean} (media {mid})")
+                print(f"    >> NEW: {name_clean} (media {mid})")
+                tracked_ids.add(mid)  # Track immediately so we don't re-download
+
+            # Also search for PDF links outside /media/
+            pdf_links = re.findall(r'href="([^"]*\.pdf)"', html)
+            print(f"    Found {len(pdf_links)} direct PDF links")
+            for pl in pdf_links[:5]:  # first 5
+                print(f"      {pl[:100]}")
 
         except Exception as e:
             print(f"SCAN ERROR: {e}")
