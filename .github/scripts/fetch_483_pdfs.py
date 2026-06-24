@@ -91,6 +91,25 @@ def try_with_curl(url):
         print(f"    curl failed: {e}")
         return ""
 
+def try_via_worker(url):
+    """Try via Cloudflare Worker proxy."""
+    worker = "https://misty-surf-7c7c.huoyunxieshen645.workers.dev/"
+    try:
+        r = subprocess.run(
+            ["curl", "-s", "-L", "-m", "20",
+             "-H", "User-Agent: python",
+             f"{worker}?target={url}"],
+            capture_output=True, text=True, timeout=25
+        )
+        result = r.stdout
+        print(f"    worker: {len(result)} bytes")
+        if len(result) > 1000 and "Just a moment" not in result:
+            return result
+        return ""
+    except Exception as e:
+        print(f"    worker failed: {e}")
+        return ""
+
 def scan_foia_pages(tracked_ids):
     """Scan FOIA pages for new 483 PDF media IDs."""
     new_finds = []
@@ -116,6 +135,13 @@ def scan_foia_pages(tracked_ids):
             print(f"    curl: {len(curl_html)} bytes (better!)")
             html = curl_html
         
+        # Try 3: Cloudflare Worker proxy
+        if len(html) < 1000:
+            worker_html = try_via_worker(url)
+            if worker_html and len(worker_html) > len(html):
+                print(f"    worker: {len(worker_html)} bytes (best!)")
+                html = worker_html
+        
         if len(html) < 1000:
             snippet = repr(html[:300])
             print(f"    Both failed — page too short ({len(html)}b): {snippet}")
@@ -128,33 +154,40 @@ def scan_foia_pages(tracked_ids):
             scan_log.append(f"{label}: BLOCKED ({len(html)}b)")
             continue
         
-        # Parse media links
-        media_links = set(re.findall(r'/media/(\d+)/download', html))
-        pdf_links = re.findall(r'href="([^"]*\.pdf)"', html, re.I)
-        print(f"    media links: {len(media_links)}, PDF links: {len(pdf_links)}")
-        scan_log.append(f"{label}: OK ({len(html)}b, media={len(media_links)}, pdf={len(pdf_links)})")
+        # Parse OII FOIA table — it's a Drupal Views table
+        # Column: Record Date | Company Name | FEI | Record Type (a href) | State | Country | Est Type | Publish Date
+        # We only care about rows where Record Type contains "483"
         
-        # Check each media link against tracked IDs
-        for mid in sorted(media_links):
+        # Find all table rows
+        rows = re.findall(r'<tr[^>]*>(.*?)</tr>', html, re.DOTALL)
+        pharma_rows = 0
+        for row in rows:
+            if '>483</a>' not in row:
+                continue
+            tds = re.findall(r'<td[^>]*>(.*?)</td>', row, re.DOTALL)
+            if len(tds) < 4:
+                continue
+            
+            company = re.sub(r'<[^>]+>', '', tds[1]).strip()
+            fei = re.sub(r'<[^>]+>', '', tds[2]).strip()
+            media_m = re.search(r'/media/(\d+)/download', tds[3])
+            if not media_m:
+                continue
+            mid = media_m.group(1)
+            rec_date = re.sub(r'<[^>]+>', '', tds[0]).strip()
+            est_type = re.sub(r'<[^>]+>', '', tds[6]).strip() if len(tds) >= 7 else ''
+            
             if mid in tracked_ids:
                 continue
-            name = f"Media_{mid}"
-            # Try to find company name in context
-            cm = re.search(
-                r'<td[^>]*>([^<]{10,120})</td>\s*<td[^>]*>[^<]*</td>\s*<td[^>]*>[^<]*</td>\s*<td[^>]*>[^<]*href="[^"]*/media/' + re.escape(mid) + r'/download"',
-                html
-            )
-            if cm:
-                name = cm.group(1).strip()
-            name_clean = re.sub(r'[^a-zA-Z0-9_\-]+', '_', name)[:60].strip('_')
+            
+            name_clean = re.sub(r'[^a-zA-Z0-9_\-]+', '_', company)[:60].strip('_')
             full_url = f"https://www.fda.gov/media/{mid}/download"
             new_finds.append((mid, name_clean, full_url))
-            print(f"    >> NEW 483: {name_clean} (media {mid})")
+            print(f"    >> NEW 483: {name_clean} (media {mid}, {rec_date}, {est_type[:30]})")
             tracked_ids.add(mid)
+            pharma_rows += 1
         
-        # Also check direct PDF links
-        for pl in pdf_links[:10]:
-            print(f"    PDF: {pl[:100]}")
+        print(f"    New 483s found on this page: {pharma_rows}")
     
     # Write scan log to repo
     (DATA_DIR / "scan_summary.txt").write_text("\n".join(scan_log) + "\n")
