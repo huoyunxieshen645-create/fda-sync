@@ -163,6 +163,12 @@ def scan_foia_pages(tracked_ids):
         print(f"    Table rows in page: {len(all_rows)}")
         scan_log.append(f"{label}: OK ({len(html)}b, rows={len(all_rows)})")
         
+        # Save first 5000 chars for debugging
+        if len(html) < 20000:
+            (DATA_DIR / f"debug_{label}_body.txt").write_text(html[:5000])
+            print(f"    Saved debug_{label}_body.txt")
+            scan_log[-1] += f" saved_body"
+        
         # Parse OII FOIA table — it's a Drupal Views table
         # Column: Record Date | Company Name | FEI | Record Type (a href) | State | Country | Est Type | Publish Date
         # We only care about rows where Record Type contains "483"
