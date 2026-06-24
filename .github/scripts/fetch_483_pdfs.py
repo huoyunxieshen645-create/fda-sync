@@ -145,7 +145,7 @@ def scan_foia_pages(tracked_ids):
         if len(html) < 1000:
             snippet = repr(html[:300])
             print(f"    Both failed — page too short ({len(html)}b): {snippet}")
-            scan_log.append(f"{label}: FAILED ({len(html)}b) {snippet}")
+            scan_log.append(f"{label}: FAILED ({len(html)}b) snippet={snippet}")
             continue
         
         # Check if it's an Akamai block page
@@ -153,6 +153,14 @@ def scan_foia_pages(tracked_ids):
             print(f"    BLOCKED by Akamai")
             scan_log.append(f"{label}: BLOCKED ({len(html)}b)")
             continue
+        
+        print(f"    Page content length: {len(html)} bytes")
+        print(f"    Contains '483': {'483' in html}")
+        print(f"    Has '<a': {'<a' in html[:500]}")
+        
+        # Find ALL rows in table for stats
+        all_rows = re.findall(r'<tr', html)
+        print(f"    Table rows in page: {len(all_rows)}")
         
         # Parse OII FOIA table — it's a Drupal Views table
         # Column: Record Date | Company Name | FEI | Record Type (a href) | State | Country | Est Type | Publish Date
