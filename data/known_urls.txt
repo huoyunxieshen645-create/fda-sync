@@ -11,8 +11,10 @@ wl_CGMP/OTC Finished Pharmaceuticals/Adulterated_
 wl_Compounding Pharmacy/Adulterated Drug Products_
 wl_False &amp; Misleading Claims/Misbranded (Telehealth)_
 wl__
+wl_excelvision-726714-fareva
 wl_ezra-holdco-llc-dba-ezra-730995-06082026
 wl_fitish-728280-06082026
+wl_genzyme-ireland-limited-728681-06222026
 wl_glow-medispa-llc-dba-mint-med-730390-06082026
 wl_huons-co-ltd-724650-06152026
 wl_joi-and-blokes-dba-joi-blokes-728283-06082026
@@ -26,3 +28,4 @@ wl_ready-med-730317-06082026
 wl_roen-health-inc-dba-roenrx-728293-06082026
 wl_sante-manufacturing-inc-724931-06052026
 wl_trinity-healthcare-supply-llc-dba-altrx-728236-06082026
+wl_wizcure-pharmaa-private-limited-726378-06242026
