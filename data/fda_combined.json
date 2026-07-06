@@ -118,9 +118,74 @@
       "status": "skipped",
       "size": 422,
       "pdf_size_kb": 422
+    },
+    {
+      "media_id": "193451",
+      "name": "Richmond_VA_Medical_Center",
+      "status": "ok",
+      "size": 1120,
+      "pdf_size_kb": 1120
+    },
+    {
+      "media_id": "193454",
+      "name": "VA_San_Diego_Healthcare_Systems",
+      "status": "ok",
+      "size": 35,
+      "pdf_size_kb": 35
     }
   ],
-  "483_new": [],
+  "483_new": [
+    {
+      "media_id": "193451",
+      "name": "Richmond_VA_Medical_Center",
+      "url": "https://www.fda.gov/media/193451/download",
+      "text_preview": "DEPARTMENT OF HEALTH AND HUMAN SERVICES\nFOOD AND DRUG ADMINISTRATION\nD ISTRICT ADDRESS ANO PHONE NUMBER\n\nOATE(S) OF INSPECTION\n\n11155 Dolfield Boulevard, Suit e 117\nOwings Mills, MD 21117\n(410) 779 - 5455 Fax : (410) 779 - 5707\n\nFEJNUMBER\n\n5/5/2026 - 5/12/2026*\n1174302\n\nNAME AND TITLE OF INDIVIDUAL TO WHOM REPORT ISSUED\n\nMr . James Ronald Johnson Jr . , Execut ive Direct or\nF IRM NAME\n\nSTREET ADDRESS\n\nRichmond VA Medical Cent er\n\n1201 Broad Rock Blvd\n\nCITY. STATE. ZIP CODE. COUITTRY\n\nTYPE ESTABUSI-NENT INSPECTED\n\nRichmond, VA 23249 - 0001\n\nProducer of St erile Drug Product s\n\nThis document lists observations made by the FDA representative(s) during the inspection ofyour facility. They are inspectional\nobservations, and do not represent a final Agency detemiination regarding your compliance. If you have an objection regarding an\nobservation, or have in1plemented, or plan to implement, corrective action in response to an observation, you may discuss the objection or\naction with the FDA representative{s) during the inspection or subrit this infonnation to FDA at the address above. If you have any\nquestions, please contact FDA at the phone number and address above.\n\nDURING AN INSPECTION OF YOUR FIRM WE OBSERVED:\n\nOBSERVATION 1\nPersonnel were observed conducting aseptic manipulations where the movement of \"first air\" in\nthe ISO 5 area is blocked or disrnpted.\nSpecifically,\nOn 05/05/2026, a compounding technician was obse1ved preparing the following prescription in Buffer\nRoom l H-ll 0A:\nR X# ~b) <5 >. (b) <7 xc~- TPN, 2000 mL IV Bag\n\nDuring the preparation of RX# ~6J <5 >, (bf(?)(C~ the following deficiency was obse1ved:\nWhile injecting components into the 2000mL IV bag, the technician's hand placement was obse1ved blocking\nthe bag po1t and needle. The technician's hands were positioned in a manner that obstmcted the\nunidirectional first air between the HEPA filter face and the critical work surface, thereby compromising the\nsterility assurance ofthe critical area.\n\nOBSE",
+      "inspection_start": "5/5/2026",
+      "inspection_end": "5/12/2026",
+      "issued_date": "5/12/2026",
+      "observations": [
+        {
+          "obs_number": 1,
+          "description": "Personnel were observed conducting aseptic manipulations where the movement of \"first air\" in the ISO 5 area is blocked or disrnpted. Specifically, On 05/05/2026, a compounding technician was obse1ved preparing the following prescription in Buffer Room l H-ll 0A: R X# ~b) <5 >. (b) <7 xc~- TPN, 2000 mL IV Bag  During the preparation of RX# ~6J <5 >, (bf(?)(C~ the following deficiency was obse1ved: While injecting components into the 2000mL IV bag, the technician's hand placement was obse1ved blocking the bag po1t and needle. The technician's hands were positioned in a manner that obstmcted the unidirectional first air between the HEPA filter face and the critical work surface, thereby compromising the sterility assurance ofthe critical area. "
+        },
+        {
+          "obs_number": 2,
+          "description": "Personnel perfo1med aseptic manipulations with exposed hair or skin. Specifically, a. The compounding technician was obse1ved leaning into the ISO 5 Laminar Airflow Workbench  DATE ISSUED  EMPLOYEE(S) SIGNATURE  SEE REVERSE Tekalign Wondimu , I nvest igat or OF THIS PAG E Michael 0 I dowu , I nvest igat or  -  5/12/2026  -081gne(18y:,l,kfllle'IO. IOCMU~  One8is:lrle«0S-12-2026  X  FORM FDA ~83 (09/08)  PREVIOUS EDmON OBSOLEJE  INS PECTIONAL OBSERVATIONS  \"\"\"\"  PAGE I of5 PAGES  DEPARTMENT OF HEALTH AND HUMAN SERVICES FOOD AND DRUG ADMINISTRATION D ISTRICT ADDRESS ANO PHONE NUMBER  OATE(S) OF INSPECTION  11155 Dolfield Boulevard, Suite 117 Owings Mills, MD 21117 (4 10) 779-5455 Fax: (4 10)779 -57 07  FEJNUMBER  5/5/2026-5/12/2026* 1174302  NAME AND TITLE OF INDIVIDUAL TO WHOM REPORT ISSUED  Mr. James Ronald Johnson Jr. , Executive Direct or F IRM NAME  STREET ADDRESS  Richmond VA Medical Center  1 201 Broad Rock Blvd  C ITY. STATE. Z IP CODE. COUITTRY  TYPE ESTABUSI-NENT INSPECTED  Richmond, VA 23249 - 0001  Producer of Steri le Drug Produc t s  (LAFW) .with exposed skin around the eyes and forehead while perfo1ming aseptic manipulations of TPN, 2000 mL IV Bag, increasing the 1isk of contamination to the critical work surface.  F.){# ~b) (5 ). (b) (7)(C~ -  b. The compounding technician's upper torso was obse1ved physically introduced into the ISO 5 LAFW environment during aseptic manipulations. As gowns are not sterile, the introduction of the technician's torso into the ISO 5 environment represents an independent contamination 1i sk, regardless of the gown's condition. This action resulted in the technician's body blocking and dismpting the unidirectional HEPA-filtered airflow (first air) over the critical work smface, compromising the ste1ility assurance of the c1itical area. "
+        },
+        {
+          "obs_number": 3,
+          "description": "Lack of disinfection of equipment at each transition from areas of lower quality air to areas of higher quality air. Specifically, On 05/05/2026, compounding technician was obse1ved prepa1ing the following presc1iption in Sterile Buffer Room lH-ll 0A:  •  F.){# fb> (5 >. (b) (7XC} -  TPN, 2000mL IV bag  During TPN compounding, the technician was obse1ved operating a[(t5) (-4) j scanner connected to the (b} (4) TPN Compounder Computer while ente1ing multiple times into and out of the ISO 5 LAFW wit out disinfecting the scanner or 0 loves each time. Additionally, the technician was obse1ved touching the TPN fo1mulation via the 6 (Ll Control Panel (Versioi(o) (4) ) touchscreen on the (b} (4) TPN Compounder Computer touchscreen, wl:iich is located outside of the ISO 5 LAFW, then going back into the ISO 5 hood to perfo1m aseptic manipulations without disinfecting their gloves.  J  DATE ISSUED  EMPLOYEE(S) SIGNATURE  SEE REVERSE OF THIS PAGE  Tekalign Wondimu , Investigator Michael O Idowu, Investigator  -  5/12/2026  -081gne(18y: ,l,kfllle'IO. IOCMU~  One8is:lrle«0S-12-2026  X  FORM FDA ~83 (09/08)  PREVIOUS EDmON OBSOLEJE  INSPECTIONAL OBSERVATIONS  \"\"\"\"  PAGE2 of5 PAGES  DEPARTMENT OF HEALTH AND HUMAN SERVICES FOOD AND DRUG ADMINISTRATION D ISTRICT ADDRESS ANO PHONE NUMBER  OATE(S) OF INSPECTION  11155 Dolfield Boulevard, Suite 117 Owings Mills, MD 21117 (4 10) 779 - 5 455 Fax : (4 10) 779 - 5707  FEJNUMBER  5/5/2026 - 5/12/2026* 1174302  NAME AND TITLE OF INDIVIDUAL TO WHOM REPORT ISSUED  Mr . James Ronald Johnson Jr . , Executive Direct or FIRM NAME  STREET ADDRESS  Richmond VA Medical Center  1201 Broad Rock Blvd  CITY. STATE. ZIP CODE. COUITTRY  TYPE ESTABUSI-NENT INSPECTED  Richmond, VA 23249 - 0001  Producer of Steri le Drug Product s "
+        },
+        {
+          "obs_number": 4,
+          "description": "Personnel were observed moving quickly in a critical area or in an area immediately adjacent to a critical area likely causing dismption of unidirectional airflow. Specifically, On 05/05/2026, compounding technician was obse1ved preparing the following prescriptions in Buffer Room l H-ll0A: •  RXn~6J c5>, Ct>) C7XC~ - Remicade (Infliximab) 500mg/0.9%NS, 250mL IV bag  The compounding technician was obse1ved moving quickly within the ISO 5 LAFW workspace dming aseptic manipulations, disrnpting unidirectional airflow and increasing the 1isk of introducing lesser-quality air into the ISO 5 critical area. "
+        },
+        {
+          "obs_number": 5,
+          "description": "Use of a disinfectant in a manner insufficient to achieve adequate levels of disinfection. Specifically, On 5/6/2026 dming [( 0)(4 l cleaning operations, cleaning perfo1med within the ISO 5 classified laminar airflow hood (LAFH), cleaning procedmes were found to be inadequate in the following respects: a. A compounding technician was observed wiping the interior smfaces of the ISO 5 LAFH without using overlapping wipe passes dming the cleaning procedme. The absence of overlapping strokes resulted in visible gaps in smface contact, with some interior smface areas visibly not contacted or wetted by the disinfectant wipe. b. The compounding technician was obse1ved using a back-and-forth scrnbbing motion while wiping the inte1ior smfaces of the ISO 5 classified LAFH, rather than the required unidirectional wiping  SEE REVERSE OF THIS PAGE  FORM FDA ~83 (09/08)  EMPLOYEE(S) SIGNATURE  DATE ISSUED  Tekalign Wondimu , I nvestigat or Michael O Idowu, I nvestigat or  5/1 2/2026  PREVIOUS EDmON OBSOLEJE  INSPECTIONAL OBSERVATIONS  PAGE 3 of5 PAGES  DEPARTMENT OF HEALTH AND HUMAN SERVICES FOOD AND DRUG ADMINISTRATION D ISTRICT ADDRESS ANO PHONE NUMBER  OATE(S) OF INSPECTION  11155 Dolfield Boulevard, Suit e 117 Owings Mills, MD 21117 (410) 779 - 5455 Fax : (410) 779 - 5707  FEJNUMBER  5/5/2026 - 5/12/2026* 1174302  NAME AND TITLE OF INDIVIDUAL TO WHOM REPORT ISSUED  Mr . James Ronald Johnson Jr . , Execut ive Direct or F IRM NAME  STREET ADDRESS  Richmond VA Medical Cent er  1201 Broad Rock Blvd  C ITY. STATE. Z IP CODE. COUITTRY  TYPE ESTABUSI-NENT INSPECTED  Richmond, VA 23249 - 0001  Producer of St erile Drug Product s  technique potentially spreading contaminants to previously cleaned areas and negating the effectiveness of the disinfection process. "
+        },
+        {
+          "obs_number": 6,
+          "description": "Use of a sporicidal agent in the fa cility's ISO 5 areas was improper. Specifically,  r17  The compounding technician was obse1ved perfonning the ~~ cleaning of the ISO 5 classified laminar airflow hoods and ISO 7 classjfied buffer room. The tecruticiai; a wetted sterile wipes treated with ste1ileJ(6) (\"1-) I (manufactured by 1(6) (4)) to the (6)(\"1-) workbench and the ~~ and 5TI4 mten or smfaces of the laminar autfow hoods. Fol owmg application, all treated smfaces were 06se1ved to air-diy within a couple of seconds. This is inconsistent with the sterile [(6) (\"1-) (6)(4) I for sporicidal effect.. I manufactmer's ((I:>) (4 i) specified dwell time ofj"
+        },
+        {
+          "obs_number": 7,
+          "description": "Failure to appropriately and regularly clean and disinfect or sterilize equipment located in the ISO 5 area. Specifically,  Al -(6)(4) light fixtme housing in the ISO 5 laminar flow hood (LFH) is not properly seated, creating a gap between the housing and the smrnunding smface. This gap constitutes a hard-to-clean area that may harbor particulate matter and microbial contamination, posing a 1isk to product quality."
+        },
+        {
+          "obs_number": 8,
+          "description": "Smoke studies were not perfo1med under dynamic conditions. Specifically,  DATE ISSUED  EMPLOYEE(S) SIGNATURE  SEE REVERSE Tekalign Wondimu , Invest igat or OF THIS PAG E Michael O Idowu, Invest igat or  -  5/12/2026  -081gne(18y: ,l,kfllle'IO. IOCMU~  One8is:lrle«0S-12-2026  X  FORM FDA ~83 (09/08)  PREVIOUS EDmON OBSOLEJE  INSPECTIONAL OBSERVATIONS  \"\"\"\"  PAGE 4 of5 PAGES  DEPARTMENT OF HEALTH AND HUMAN SERVICES FOOD AND DRUG ADMINISTRATION D ISTRICT ADDRESS ANO PHONE NUMBER  OATE(S) OF INSPECTION  11155 Dolfield Boulevard, Suite 117 Owings Mills, MD 21117 (4 10) 779-5455 Fax: (4 10) 779-5707  FEJNUMBER  5/5/2026 - 5/12/2026* 1174302  NAME AND TITLE OF INDIVIDUAL TO WHOM REPORT ISSUED  Mr. James Ronald Johnson Jr. , Executive Direct or FIRM NAME  STREET ADDRESS  Richmond VA Medical Center  1201 Broad Rock Blvd  CITY. STATE. ZIP CODE. COUITTRY  TYPE ESTABUSI-NENT INSPECTED  Richmond, VA 23249 - 0001  Producer of Steri le Drug Product s  The smoke study videos for the pha1macy's (b){4 ) laminar airflow workbenches (LAFWs) and fhX4J biological safety cabinets (BSCs) did not demonstrate manipulations or conditions representative of tlie dynamic processes used in the compounding of sterile preparations; therefore, the studies were not conducted in a manner that adequately replicates the range, complexity, or pace of actual compounding operations perfo1med at these workstations. As a result, the studies failed to ve1ify unidirectional airflow within the ISO 5 classified area is sufficient to protect critical sites dming representative aseptic manipulations. Additionally, the volume and/or density of smoke used dming these studies was inadequate to sufficiently visualize airflow patterns and identify potential turbulence or contamination risks within the ISO 5 area.  *DATES OF INSPECTION 5/05/2026(Tue), 5/06/2026(Wed), 5/07/2026(Thu), 5/08/2026(Fri), 5/12/2026(Tue)  Tekalign Wondirnu ~ ~TEKAUGN WONOlt.lJ -S X 0ate s ;gne0: os. , 2-2026 13,01,sg  SEE REVERSE OF THIS PAGE  FORM FDA ~83 (09/08)  EMPLOYEE(S) SIGNATURE  DATE ISSUED  Tekalign Wondimu , I nvestigat or Michael O Idowu, I nvestigat or  5/1 2/2026  PREVIOUS EDmON OBSOLEJE  INSPECTIONAL OBSERVATIONS  PAGE 5of5 PAGES  The observations of objectionable conditions and practices listed on the front of this form are reported: 1. Pursuant to Section 704(b) of the Federal Food, Drug and Cosmetic Act, or 2. To assist firms inspected in complying with the Acts and regulations enforced by the Food and Drug Administration.  Section 704(b) of the Federal Food, Drug, and Cosmetic Act (21 USC 374(b)) provides: \"Upon completion of any such inspection of a factory, warehouse, consulting laboratory, or other establishment, and prior to leaving the premises, the officer or employee making the inspection shall give to the owner, operator, or agent in charge a report in writing setting forth any conditions or practices observed by him which, in his judgment, indicate that any food, drug, device, or cosmetic in such "
+        }
+      ],
+      "citations": [],
+      "pdf_size_kb": 1120
+    },
+    {
+      "media_id": "193454",
+      "name": "VA_San_Diego_Healthcare_Systems",
+      "url": "https://www.fda.gov/media/193454/download"
+    }
+  ],
   "warning_letters": [
     {
       "company": "Sante Manufacturing Inc.",
@@ -195,5 +260,5 @@
       ]
     }
   ],
-  "fetched_at": "2026-07-05T12:49:40.155035"
+  "fetched_at": "2026-07-06T17:51:27.196210"
 }
