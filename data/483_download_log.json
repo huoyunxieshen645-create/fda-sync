@@ -117,19 +117,5 @@
     "status": "skipped",
     "size": 422,
     "pdf_size_kb": 422
-  },
-  {
-    "media_id": "193451",
-    "name": "Richmond_VA_Medical_Center",
-    "status": "ok",
-    "size": 1120,
-    "pdf_size_kb": 1120
-  },
-  {
-    "media_id": "193454",
-    "name": "VA_San_Diego_Healthcare_Systems",
-    "status": "ok",
-    "size": 35,
-    "pdf_size_kb": 35
   }
 ]
