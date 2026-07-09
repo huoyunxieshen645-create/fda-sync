@@ -117,5 +117,12 @@
     "status": "skipped",
     "size": 422,
     "pdf_size_kb": 422
+  },
+  {
+    "media_id": "193455",
+    "name": "Catalent_Indiana_LLC",
+    "status": "ok",
+    "size": 3501,
+    "pdf_size_kb": 3501
   }
 ]
