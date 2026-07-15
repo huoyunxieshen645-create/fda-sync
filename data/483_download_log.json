@@ -117,19 +117,5 @@
     "status": "skipped",
     "size": 422,
     "pdf_size_kb": 422
-  },
-  {
-    "media_id": "193577",
-    "name": "Zhejiang_Huahai_Pharmaceutical_Co_Ltd",
-    "status": "ok",
-    "size": 15514,
-    "pdf_size_kb": 15514
-  },
-  {
-    "media_id": "193581",
-    "name": "Cliantha_Research_Limited",
-    "status": "ok",
-    "size": 1690,
-    "pdf_size_kb": 1690
   }
 ]
