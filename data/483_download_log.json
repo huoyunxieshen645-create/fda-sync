@@ -117,5 +117,19 @@
     "status": "skipped",
     "size": 422,
     "pdf_size_kb": 422
+  },
+  {
+    "media_id": "193490",
+    "name": "Turbare_Manufacturing",
+    "status": "ok",
+    "size": 2735,
+    "pdf_size_kb": 2735
+  },
+  {
+    "media_id": "193549",
+    "name": "Alvotech_Hf",
+    "status": "ok",
+    "size": 4112,
+    "pdf_size_kb": 4112
   }
 ]
