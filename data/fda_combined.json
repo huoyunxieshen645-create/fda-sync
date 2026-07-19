@@ -118,9 +118,26 @@
       "status": "skipped",
       "size": 422,
       "pdf_size_kb": 422
+    },
+    {
+      "media_id": "193691",
+      "name": "Catalent_Indiana_LLC",
+      "status": "ok",
+      "size": 9540,
+      "pdf_size_kb": 9540
     }
   ],
-  "483_new": [],
+  "483_new": [
+    {
+      "media_id": "193691",
+      "name": "Catalent_Indiana_LLC",
+      "url": "https://www.fda.gov/media/193691/download",
+      "text_preview": "\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f",
+      "observations": [],
+      "citations": [],
+      "pdf_size_kb": 9540
+    }
+  ],
   "warning_letters": [
     {
       "company": "Sante Manufacturing Inc.",
@@ -218,5 +235,5 @@
       ]
     }
   ],
-  "fetched_at": "2026-07-18T09:16:47.863505"
+  "fetched_at": "2026-07-19T09:45:23.574494"
 }
