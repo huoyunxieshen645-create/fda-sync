@@ -117,5 +117,12 @@
     "status": "skipped",
     "size": 422,
     "pdf_size_kb": 422
+  },
+  {
+    "media_id": "193887",
+    "name": "Strides_Pharma_Science_Limited",
+    "status": "ok",
+    "size": 4792,
+    "pdf_size_kb": 4792
   }
 ]
