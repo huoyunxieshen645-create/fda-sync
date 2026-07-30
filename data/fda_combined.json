@@ -118,26 +118,9 @@
       "status": "skipped",
       "size": 422,
       "pdf_size_kb": 422
-    },
-    {
-      "media_id": "193887",
-      "name": "Strides_Pharma_Science_Limited",
-      "status": "ok",
-      "size": 4792,
-      "pdf_size_kb": 4792
     }
   ],
-  "483_new": [
-    {
-      "media_id": "193887",
-      "name": "Strides_Pharma_Science_Limited",
-      "url": "https://www.fda.gov/media/193887/download",
-      "text_preview": "\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f\f",
-      "observations": [],
-      "citations": [],
-      "pdf_size_kb": 4792
-    }
-  ],
+  "483_new": [],
   "warning_letters": [
     {
       "company": "Sante Manufacturing Inc.",
@@ -251,5 +234,5 @@
       "citations": []
     }
   ],
-  "fetched_at": "2026-07-29T10:31:43.888137"
+  "fetched_at": "2026-07-30T10:14:41.364245"
 }
