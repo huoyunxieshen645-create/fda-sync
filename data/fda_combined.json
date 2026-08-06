@@ -118,9 +118,26 @@
       "status": "skipped",
       "size": 422,
       "pdf_size_kb": 422
+    },
+    {
+      "media_id": "194060",
+      "name": "Emcure_Pharmaceuticals_Limited",
+      "status": "ok",
+      "size": 1179,
+      "pdf_size_kb": 1179
     }
   ],
-  "483_new": [],
+  "483_new": [
+    {
+      "media_id": "194060",
+      "name": "Emcure_Pharmaceuticals_Limited",
+      "url": "https://www.fda.gov/media/194060/download",
+      "text_preview": "\f\f\f\f\f\f\f\f\f",
+      "observations": [],
+      "citations": [],
+      "pdf_size_kb": 1179
+    }
+  ],
   "warning_letters": [
     {
       "company": "Sante Manufacturing Inc.",
@@ -256,5 +273,5 @@
       ]
     }
   ],
-  "fetched_at": "2026-08-05T10:27:16.092431"
+  "fetched_at": "2026-08-06T10:30:28.044967"
 }
