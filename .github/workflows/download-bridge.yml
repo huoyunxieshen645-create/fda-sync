@@ -29,7 +29,8 @@ jobs:
 
       - name: Download
         run: |
-          python3 .github/scripts/download_bridge.py
+          rm -f downloads/_last_run.log
+          python3 .github/scripts/download_bridge.py || true
 
       - name: Commit result
         run: |

@@ -12,7 +12,13 @@ UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
 
 
 def log(*a):
-    print(*a, flush=True)
+    msg = " ".join(str(x) for x in a)
+    print(msg, flush=True)
+    try:
+        with open(DL / "_last_run.log", "a") as f:
+            f.write(msg + "\n")
+    except OSError:
+        pass
 
 
 def main():
