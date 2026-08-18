@@ -25,14 +25,35 @@ def main():
     out = DL / f"{slug}.pdf"
     log("output:", out)
 
+    # make scribdl importable without md2pdf (weasyprint trap) — fake it
+    import types, sys as _sys
+    fake = types.ModuleType("md2pdf")
+    fake_core = types.ModuleType("md2pdf.core")
+    def _disabled(*a, **k):
+        raise RuntimeError("md2pdf disabled")
+    fake_core.md2pdf = _disabled
+    fake.core = fake_core
+    _sys.modules["md2pdf"] = fake
+    _sys.modules["md2pdf.core"] = fake_core
+
     ok = False
     if doc_id and "scribd" in url:
-        ok = try_scribd_dl(url, out)
+        ok = scribdl_download(url, out, image_doc=False)
         if not ok:
-            log("scribd-dl failed, falling back to embed text extraction")
+            log("scribdl textual failed, trying image mode")
+            ok = scribdl_download(url, out, image_doc=True)
+        if not ok:
+            log("scribdl failed, falling back to embed text extraction")
             ok = scribd_embed_text(doc_id, out)
     else:
         ok = plain_download(url, out)
+
+    # cleanup intermediates
+    for p in list(DL.glob("*.md")) + list(DL.glob("*.jpg")) + list(DL.glob("*.png")):
+        try:
+            p.unlink()
+        except OSError:
+            pass
 
     if not ok:
         log("FAILED: no output file produced")
@@ -45,27 +66,65 @@ def plain_download(url, out):
     return r.returncode == 0 and out.exists() and out.stat().st_size > 0
 
 
-def try_scribd_dl(url, out):
-    if not shutil.which("scribd-dl"):
-        log("scribd-dl not installed")
-        return False
-    log("running scribd-dl ...")
+def scribdl_download(url, out, image_doc):
+    from scribdl.downloader import Downloader
+    log("scribdl image_doc:", image_doc)
     try:
-        r = subprocess.run(["scribd-dl", url], cwd=str(DL), timeout=300,
-                           capture_output=True, text=True)
-        log("scribd-dl rc:", r.returncode)
-        if r.stdout:
-            log("stdout tail:", r.stdout[-2000:])
-        if r.stderr:
-            log("stderr tail:", r.stderr[-2000:])
+        dl = Downloader(url)
+        if dl._is_audiobook or dl._is_book:
+            log("scribdl: audiobook/book not supported here")
+            return False
+        content = dl.download(is_image_document=image_doc)
     except Exception as e:
-        log("scribd-dl exception:", e)
+        log("scribdl download exception:", repr(e)[:300])
         return False
-    cands = sorted(DL.glob("*.pdf"), key=lambda p: p.stat().st_mtime)
-    if cands:
-        latest = cands[-1]
-        if latest.name != out.name:
-            shutil.move(str(latest), str(out))
+
+    if image_doc:
+        if not content.content_path:
+            log("scribdl: no images extracted")
+            return False
+        try:
+            import img2pdf
+            with open(str(out), "wb") as f:
+                imgs = [open(str(p), "rb") for p in content.content_path]
+                f.write(img2pdf.convert(imgs))
+                for im in imgs:
+                    im.close()
+            return out.exists() and out.stat().st_size > 1000
+        except Exception as e:
+            log("scribdl img2pdf exception:", repr(e)[:300])
+            return False
+
+    # textual: content.content_path is a .md file
+    md = Path(content.content_path) if content.content_path else None
+    if not md or not md.exists() or md.stat().st_size < 100:
+        log("scribdl: text too small / missing:", md)
+        return False
+    log("scribdl md bytes:", md.stat().st_size)
+    return md_to_pdf(md, out)
+
+
+def md_to_pdf(md, out):
+    from xml.sax.saxutils import escape
+    from reportlab.lib.pagesizes import A4
+    from reportlab.lib.styles import getSampleStyleSheet
+    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+    text = md.read_text(errors="replace")
+    paras = [p.strip() for p in re.split(r"\n\s*\n", text) if p.strip()]
+    if not paras:
+        paras = [text.strip()]
+    doc = SimpleDocTemplate(str(out), pagesize=A4,
+                            rightMargin=54, leftMargin=54, topMargin=54, bottomMargin=54)
+    styles = getSampleStyleSheet()
+    body = styles["BodyText"]
+    body.fontSize = 10.5
+    body.leading = 15
+    story = []
+    for p in paras:
+        if story:
+            story.append(Spacer(1, 8))
+        story.append(Paragraph(escape(p).replace("\n", "<br/>"), body))
+    doc.build(story)
     return out.exists() and out.stat().st_size > 1000
 
 
@@ -109,11 +168,14 @@ def scribd_embed_text(doc_id, out):
     doc = SimpleDocTemplate(str(out), pagesize=A4,
                             rightMargin=54, leftMargin=54, topMargin=54, bottomMargin=54)
     styles = getSampleStyleSheet()
+    body = styles["BodyText"]
+    body.fontSize = 10.5
+    body.leading = 15
     story = []
     for i, t in enumerate(texts):
         if i:
             story.append(Spacer(1, 12))
-        story.append(Paragraph(escape(t).replace("\n", "<br/>"), styles["BodyText"]))
+        story.append(Paragraph(escape(t).replace("\n", "<br/>"), body))
     doc.build(story)
     return out.exists() and out.stat().st_size > 1000
 

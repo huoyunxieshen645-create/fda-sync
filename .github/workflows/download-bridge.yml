@@ -22,7 +22,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -q scribd-dl requests beautifulsoup4 reportlab img2pdf
+          pip install -q --no-deps scribd-downloader requests beautifulsoup4 reportlab img2pdf
 
       - name: Download
         run: |
