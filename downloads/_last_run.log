@@ -1,2 +1,10 @@
 requested: https://www.scribd.com/document/369369029/Incident-Management-Process
 output: /home/runner/work/fda-sync/fda-sync/downloads/Incident-Management-Process.pdf
+TRACEBACK: Traceback (most recent call last): |   File "/home/runner/work/fda-sync/fda-sync/.github/scripts/download_bridge.py", line 86, in scribdl_download |     from scribdl.downloader import Downloader |   File "/tmp/scribdl/scribdl/__init__.py", line 3, in <module> |     from .downloader import Downloader |   File "/tmp/scribdl/scribdl/downloader.py", line 4, in <module> |     from .content.document import ScribdTextualDocument |   File "/tmp/scribdl/scribdl/content/document.py", line 7, in <module> |     from .base import ScribdBase |   File "/tmp/scribdl/scribdl/content/base.py", line 4, in <module> |     import six | ModuleNotFoundError: No module named 'six' | 
+scribdl textual failed, trying image mode
+TRACEBACK: Traceback (most recent call last): |   File "/home/runner/work/fda-sync/fda-sync/.github/scripts/download_bridge.py", line 86, in scribdl_download |     from scribdl.downloader import Downloader |   File "/tmp/scribdl/scribdl/__init__.py", line 3, in <module> |     from .downloader import Downloader |   File "/tmp/scribdl/scribdl/downloader.py", line 4, in <module> |     from .content.document import ScribdTextualDocument |   File "/tmp/scribdl/scribdl/content/document.py", line 7, in <module> |     from .base import ScribdBase |   File "/tmp/scribdl/scribdl/content/base.py", line 4, in <module> |     import six | ModuleNotFoundError: No module named 'six' | 
+scribdl failed, falling back to embed text extraction
+embed url: https://www.scribd.com/embeds/369369029/content
+embed http: 200 len: 3036
+pages extracted: 1 chars: 315
+OK: Incident-Management-Process.pdf 1647 bytes
