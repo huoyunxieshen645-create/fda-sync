@@ -21,6 +21,11 @@ def log(*a):
         pass
 
 
+def log_traceback():
+    import traceback
+    log("TRACEBACK:", traceback.format_exc().replace("\n", " | "))
+
+
 def main():
     url = REQ.read_text().strip().splitlines()[0].strip()
     log("requested:", url)
@@ -42,29 +47,33 @@ def main():
     _sys.modules["md2pdf"] = fake
     _sys.modules["md2pdf.core"] = fake_core
 
-    ok = False
-    if doc_id and "scribd" in url:
-        ok = scribdl_download(url, out, image_doc=False)
-        if not ok:
-            log("scribdl textual failed, trying image mode")
-            ok = scribdl_download(url, out, image_doc=True)
-        if not ok:
-            log("scribdl failed, falling back to embed text extraction")
-            ok = scribd_embed_text(doc_id, out)
-    else:
-        ok = plain_download(url, out)
+    try:
+        ok = False
+        if doc_id and "scribd" in url:
+            ok = scribdl_download(url, out, image_doc=False)
+            if not ok:
+                log("scribdl textual failed, trying image mode")
+                ok = scribdl_download(url, out, image_doc=True)
+            if not ok:
+                log("scribdl failed, falling back to embed text extraction")
+                ok = scribd_embed_text(doc_id, out)
+        else:
+            ok = plain_download(url, out)
 
-    # cleanup intermediates
-    for p in list(DL.glob("*.md")) + list(DL.glob("*.jpg")) + list(DL.glob("*.png")):
-        try:
-            p.unlink()
-        except OSError:
-            pass
+        # cleanup intermediates
+        for p in list(DL.glob("*.md")) + list(DL.glob("*.jpg")) + list(DL.glob("*.png")):
+            try:
+                p.unlink()
+            except OSError:
+                pass
 
-    if not ok:
-        log("FAILED: no output file produced")
+        if not ok:
+            log("FAILED: no output file produced")
+            sys.exit(1)
+        log("OK:", out.name, out.stat().st_size, "bytes")
+    except Exception:
+        log_traceback()
         sys.exit(1)
-    log("OK:", out.name, out.stat().st_size, "bytes")
 
 
 def plain_download(url, out):
@@ -73,7 +82,11 @@ def plain_download(url, out):
 
 
 def scribdl_download(url, out, image_doc):
-    from scribdl.downloader import Downloader
+    try:
+        from scribdl.downloader import Downloader
+    except Exception:
+        log_traceback()
+        return False
     log("scribdl image_doc:", image_doc)
     try:
         dl = Downloader(url)

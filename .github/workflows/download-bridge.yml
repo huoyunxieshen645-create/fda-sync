@@ -23,14 +23,14 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -q requests beautifulsoup4 reportlab img2pdf
-          # scribd-downloader 1.3.1 is a py2-only wheel; pip refuses it on py3, so unzip manually
+          # scribd-downloader 1.3.1 is a py2-only wheel; pip refuses it on py3, so unzip into a fixed dir
           curl -sL --max-time 60 -o /tmp/sd.whl "https://files.pythonhosted.org/packages/80/b0/8d3a3f584cc9da5e091bf1bbdb0a53b8b9ccca8edfc953276fa380537a08/scribd_downloader-1.3.1-py2-none-any.whl"
-          unzip -o -q /tmp/sd.whl -d "$(python3 -c 'import site; print(site.getsitepackages()[0])')"
+          rm -rf /tmp/scribdl && mkdir -p /tmp/scribdl && unzip -o -q /tmp/sd.whl -d /tmp/scribdl
 
       - name: Download
         run: |
           rm -f downloads/_last_run.log
-          python3 .github/scripts/download_bridge.py || true
+          PYTHONPATH=/tmp/scribdl python3 .github/scripts/download_bridge.py || true
 
       - name: Commit result
         run: |
