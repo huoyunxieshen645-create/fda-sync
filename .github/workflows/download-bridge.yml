@@ -1,0 +1,42 @@
+name: Download Bridge
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'downloads/.request.txt'
+      - '.github/workflows/download-bridge.yml'
+      - '.github/scripts/download_bridge.py'
+  workflow_dispatch:
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install -q scribd-dl requests beautifulsoup4 reportlab img2pdf
+
+      - name: Download
+        run: |
+          python3 .github/scripts/download_bridge.py
+
+      - name: Commit result
+        run: |
+          git config user.name "dl-bot"
+          git config user.email "dl-bot@users.noreply.github.com"
+          git add downloads/
+          git diff --quiet && git diff --staged --quiet || \
+            git commit -m "auto: download bridge result [skip ci]"
+
+      - name: Push changes
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git push origin HEAD:main
